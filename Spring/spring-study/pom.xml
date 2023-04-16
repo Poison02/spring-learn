@@ -11,6 +11,7 @@
     <modules>
         <module>spring-01-ioc</module>
         <module>spring-02-hellospring</module>
+        <module>spring-03-proxy</module>
     </modules>
 
     <properties>
