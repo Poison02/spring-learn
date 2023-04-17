@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--    配置数据源，Spring去做-->
+
+    <typeAliases>
+        <typeAlias type="cdu.zch.entity"/>
+    </typeAliases>
+
+    <mappers>
+        <mapper class="cdu.zch.mapper.BooksMapper"/>
+    </mappers>
+
+</configuration>
