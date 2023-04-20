@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<!--xmlns:th="http://www.thymeleaf.org"-->
+<!--xmlns:sec="http://www.thymeleaf.org/extras/spring-security"-->
+<!--xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:each="m: ${msg}" th:text="${m}"></h1>
+</body>
+</html>
