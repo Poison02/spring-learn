@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    这就是Spring的配置文件
+    IDEA为我们提供了这个模板
+    文件名字可以换，文件最好放在类路径中，方便后期的移植
+    放在resources根目录下，就相当于是在类的根目录下
+    我们需要配置bean，这样Spring才能帮我们管理对象-->
+
+    <!--    id是bean的唯一id，不能重复
+            class：必须填写类的全路径，带包名的类-->
+    <bean id="userBean" class="cdu.zch.bean.User"/>
+    <bean id="userDaoImplBean" class="cdu.zch.dao.UserDaoImpl"/>
+
+<!--    配置java.util.Date Bean-->
+    <bean id="nowTime" class="java.util.Date"/>
+
+</beans>
