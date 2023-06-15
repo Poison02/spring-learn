@@ -1,0 +1,10 @@
+server:
+  port: 8080 # 客户端端口没有要求
+spring:
+  application:
+    name: eureka-client-a
+# 注册的含义是什么？就是将自己的一些信息（什么信息ip、端口等）发动过去（发到哪里）
+eureka:
+  client:
+    service-url: # 指定注册地址
+      defaultZone: http://localhost:8761/eureka
