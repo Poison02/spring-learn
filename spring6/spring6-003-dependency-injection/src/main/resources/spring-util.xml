@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+<!--    测试util注入，是为了简化配置文件注入
+        第一步：引入头部文件
+            xmlns:util="http://www.springframework.org/schema/util"
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        第二步：使用-->
+    <util:properties id="prop">
+        <prop key="driver">com.mysql.cj.Driver</prop>
+        <prop key="url">jdbc:mysql://localhost:3306/spring6</prop>
+        <prop key="username">root</prop>
+        <prop key="password">root</prop>
+    </util:properties>
+
+    <bean id="ds1" class="cdu.zch.jdbc.MyDataSource1">
+        <property name="properties" ref="prop"/>
+    </bean>
+
+    <bean id="ds2" class="cdu.zch.jdbc.MyDataSource2">
+        <property name="properties" ref="prop"/>
+    </bean>
+
+</beans>

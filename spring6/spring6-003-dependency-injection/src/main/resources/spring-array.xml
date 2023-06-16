@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="w1" class="cdu.zch.bean.Women">
+        <property name="name" value="小花"/>
+    </bean>
+
+    <bean id="w2" class="cdu.zch.bean.Women">
+        <property name="name" value="小亮"/>
+    </bean>
+
+    <bean id="w3" class="cdu.zch.bean.Women">
+        <property name="name" value="小明"/>
+    </bean>
+
+    <bean id="yuQian" class="cdu.zch.bean.QianDaye">
+<!--        这个数组属性当中的元素类型是String简单类型-->
+        <property name="aiHaos">
+            <array>
+                <value>抽烟</value>
+                <value>喝酒</value>
+                <value>烫头</value>
+            </array>
+        </property>
+
+<!--        这个数组中的类型就不是简单类型了-->
+        <property name="women">
+            <array>
+                <ref bean="w1"/>
+                <ref bean="w2"/>
+                <ref bean="w3"/>
+            </array>
+        </property>
+    </bean>
+
+</beans>

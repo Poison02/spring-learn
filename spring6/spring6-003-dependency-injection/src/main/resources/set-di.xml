@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    外部Bean-->
+    <bean id="orderDaoBean" class="cdu.zch.dao.OrderDao"/>
+
+    <bean id="orderServiceBean" class="cdu.zch.service.OrderService">
+        <!--        注入外部bean
+                    使用ref属性来引用，这就是注入外部bean-->
+        <property name="orderDao" ref="orderDaoBean"/>
+    </bean>
+
+    <bean id="orderServiceBean2" class="cdu.zch.service.OrderService">
+        <property name="orderDao">
+            <!--            在property标签中使用嵌套的bean，这就是内部bean-->
+            <bean class="cdu.zch.dao.OrderDao"/>
+        </property>
+    </bean>
+
+    <!--    注入简单类型-->
+    <bean id="userBean" class="cdu.zch.bean.User">
+        <!--        重点：如果是给简单类型赋值，就必须使用value-->
+        <property name="username" value="张三"/>
+        <property name="password" value="123456"/>
+        <property name="age" value="18"/>
+    </bean>
+
+    <!--    测试哪些类型是简单类型-->
+    <bean id="svt" class="cdu.zch.bean.SimpleValueType">
+        <property name="age" value="111"/>
+        <property name="age2" value="222"/>
+        <property name="flag" value="true"/>
+        <property name="flag2" value="false"/>
+        <property name="c" value="a"/>
+        <property name="c2" value="b"/>
+        <property name="season" value="SPRING"/>
+        <property name="username" value="张三"/>
+        <property name="clazz" value="cdu.zch.bean.Season"/>
+        <!--    <property name="birth" value="2022-06-16"/>-->
+        <!--        如果将Date当作简单类型，那么日期格式需要注意！就是普通的 new Date()类型
+                    在实际开发中，一般不会把Date当作简单类型，虽然他是简单类型，一般使用ref给Date赋值-->
+    </bean>
+
+    <!--    让spring管理我们的数据源-->
+    <bean class="cdu.zch.jdbc.MyDataSource" id="myDataSource">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/spring6"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <!--    注入null或者空字符串-->
+    <bean id="cat" class="cdu.zch.bean.Cat">
+        <!--        不给属性注入，默认就是null-->
+                <property name="name" value="小花"/>
+<!--        手动注入null-->
+<!--        <property name="name">-->
+<!--            <null/>-->
+<!--        </property>-->
+<!--        注入空字符串 第一种-->
+<!--        <property name="name" value=""/>-->
+<!--        注入空字符串 第二种-->
+<!--        <property name="name">-->
+<!--            <value/>-->
+<!--        </property>-->
+        <property name="age" value="18"/>
+    </bean>
+
+<!--    注入特殊符号-->
+    <bean id="mathBean" class="cdu.zch.bean.MathBean">
+<!--        第一种，使用实体符号代替特殊符号-->
+<!--        <property name="result" value="2 &lt; 3"/>-->
+<!--        第二种，使用<![CDATA[]]>-->
+        <property name="result">
+<!--            只能使用value标签-->
+            <value><![CDATA[2 < 3]]></value>
+        </property>
+    </bean>
+
+</beans>

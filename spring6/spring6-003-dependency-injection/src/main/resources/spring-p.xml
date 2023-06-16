@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    第一步，在spring配置文件头部添加p命名空间 xmlns:p="http://www.springframework.org/schema/p"
+        第二步：使用-->
+    <bean class="cdu.zch.bean.Dog" id="dogBean" p:name="小花" p:age="3" p:birth-ref="birthBean"/>
+<!--    这里获取的是当前系统时间-->
+    <bean id="birthBean" class="java.util.Date"/>
+
+</beans>

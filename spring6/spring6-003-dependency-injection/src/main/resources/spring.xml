@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userDaoBean" class="cdu.zch.dao.UserDao"/>
+
+    <bean id="userServiceBean" class="cdu.zch.service.UserService">
+        <!-- 想让spring调用对应的set方法，需要配置property标签，
+             name属性怎么指定值：set方法去掉set，剩下单词首字母变小写
+             这里ref是引用的意思：references，ref后面指定的是要注入的bean的id-->
+        <property name="mysqlUserDao" ref="userDaoBean"/>
+    </bean>
+
+    <bean id="customerServiceBean" class="cdu.zch.service.CustomerService">
+        <!-- 构造注入
+             指定构造方法的第一个参数，下标是0
+             index：指定参数下标，第一个参数是0，以此类推
+             ref：用来指定注入bean的id-->
+        <constructor-arg index="0" ref="userDaoBean"/>
+    </bean>
+
+    <bean id="csBean" class="cdu.zch.service.CustomerService">
+        <!-- 通过构造方法中的参数的名字进行匹配-->
+        <constructor-arg name="userDao" ref="userDaoBean"/>
+    </bean>
+
+    <bean id="csBean2" class="cdu.zch.service.CustomerService">
+        <!-- 直接通过自动匹配
+        但是这种方式实际上是通过类型进行匹配的，Spring会自动通过类型进行判断注入参数-->
+        <constructor-arg ref="userDaoBean"/>
+    </bean>
+
+</beans>

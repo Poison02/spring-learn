@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    <bean id="orderDao" class="cdu.zch.dao.OrderDao"/>-->
+
+    <!--    <bean id="orderService" class="cdu.zch.service.OrderService">-->
+    <!--        <property name="orderDao" ref="orderDao"/>-->
+    <!--    </bean>-->
+
+    <!--    下面演示 byName -->
+<!--    id也叫做bean的名称-->
+    <bean id="orderDao" class="cdu.zch.dao.OrderDao"/>
+    <!--根据名称进行自动装配，buName根据set方法去掉set首字母小写
+        自动装配也是基于set方式实现的-->
+    <bean id="orderService" class="cdu.zch.service.OrderService" autowire="byName"/>
+
+<!--    下面演示 byType
+        注意：根据类型进行装配的时候，某种类型的实例只能有一个！！！-->
+    <bean class="cdu.zch.dao.UserDao"/>
+    <bean id="cs" class="cdu.zch.service.CustomerService" autowire="byType"/>
+
+</beans>

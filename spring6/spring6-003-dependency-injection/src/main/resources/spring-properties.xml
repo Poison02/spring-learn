@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--    引入外部的properties文件
+        第一步：引入context命名空间
+        第二步：使用标签 <context:property-placeholder location="jdbc.properties"/>
+            location 默认从根路径下加载-->
+    <context:property-placeholder location="jdbc.properties"/>
+    <bean id="ds" class="cdu.zch.jdbc.MyDataSource">
+<!--        第三步 取值 使用 ${} -->
+        <property name="driver" value="${jdbc.driverClass}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+</beans>

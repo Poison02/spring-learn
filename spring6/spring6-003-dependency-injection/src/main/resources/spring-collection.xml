@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="cdu.zch.bean.Person" id="person">
+        <property name="names">
+<!--            List有序可重复-->
+            <list>
+                <value>张三</value>
+                <value>李四</value>
+                <value>王五</value>
+                <value>张三</value>
+                <value>李四</value>
+                <value>张三</value>
+                <value>张三</value>
+            </list>
+        </property>
+        <property name="address">
+<!--            set无需不可重复-->
+            <set>
+                <value>成都</value>
+                <value>四川</value>
+                <value>成都</value>
+                <value>杭州</value>
+            </set>
+        </property>
+        <property name="phone">
+            <map>
+                <!--
+                    如果key和value不是简单类型，就是用
+                    <entry key-ref="" value-ref=""/>
+                -->
+                <entry key="1" value="110"/>
+                <entry key="2" value="120"/>
+                <entry key="3" value="130"/>
+                <entry key="4" value="140"/>
+                <entry key="5" value="150"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="driver">111</prop>
+                <prop key="url">222</prop>
+                <prop key="username">333</prop>
+                <prop key="password">444</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>

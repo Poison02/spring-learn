@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="CheckStyle-IDEA-Module" serialisationVersion="2">
+    <option name="activeLocationsIds" />
+  </component>
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/spring.xml</file>
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/set-di.xml</file>
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/cascade.xml</file>
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/spring-array.xml</file>
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/spring-collection.xml</file>
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/spring-p.xml</file>
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/spring-c.xml</file>
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/spring-util.xml</file>
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/spring-autowire.xml</file>
+          <file>file://$MODULE_DIR$/spring6-003-dependency-injection/src/main/resources/spring-properties.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+</module>

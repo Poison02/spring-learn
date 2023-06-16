@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="student" class="cdu.zch.bean.Student">
+        <property name="name" value="张三"/>
+        <property name="clazz" ref="clazz"/>
+<!--        级联属性赋值
+            使用级联属性赋值，需要注意两点，
+                1.配置属性不能颠倒，必须先有上面的才能有下面的
+                2.class属性必须提供get方法-->
+        <property name="clazz.name" value="高三三班"/>
+    </bean>
+
+    <bean id="clazz" class="cdu.zch.bean.Clazz"></bean>
+
+<!--    <bean id="clazz" class="cdu.zch.bean.Clazz">-->
+<!--        <property name="name" value="1班"/>-->
+<!--    </bean>-->
+
+</beans>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    第一步 添加c命名空间 xmlns:c="http://www.springframework.org/schema/c"
+        第二步：使用：两种方法 index或者变量名-->
+    <bean id="peopleBean" class="cdu.zch.bean.People" c:_0="张三" c:_1="20" c:_2="1"/>
+
+</beans>
