@@ -60,3 +60,52 @@
      - 都不是固定的！
      - `<mapper resource="CarMapper.xml"/>` 是从类路径中加载
      - `<mapper url="file:///d:/CarMapper.xml"/>` 是从绝对路径中加载
+6. 关于mybatis的事务管理机制：
+    - 在mybatis-config.xml文件中，可以通过一下的配置进行mybatis的事务管理
+      - `<transactionManager type="JDBC">`
+    - type属性的值包括两个：
+      - JDBC（jdbc）
+      - MANAGED（managed）
+      - type后面的值，只有这两个，大小写都可
+    - 在mybatis中提供了两种事务管理机制
+      - 第一种：JDBC事务管理器
+      - 第二种：MANAGED事务管理器
+    - JDBC事务管理器：
+      - mybatis框架自己管理事务，自己采用原生的JDBC代码去管理事务：
+        - conn.setAutoCommit(false)；开启事务。
+        - ...业务处理
+        - conn.commit() 提交
+      - 使用JDBC事务管理器，底层创建的事务管理器对象就是JDBC事务管理器
+    - 如果代码是这样的：
+      - `SqlSession sqlSession = sqlSessionFactory.openSession(true)`
+      - 表示没有开启事务，因为这个代码没有执行 `conn.setAutoCommit(false)`
+      - 如果autoCommit是true，就表示没有开启事务，只要执行任意一条DML语句就提交一次
+    - MANAGED事务管理器：
+      - mybatis不再负责事务的管理，事务管理交给其他容器来负责。例如：Spring
+      - 对于我们当前的单纯只有mybatis的情况下，如果配置为MANAGED，那么事务是没有人管的，就相当于事务没有开启。
+    - JDBC中的事务：
+      - 如果没有手动指定 conn.setAutoCommit(false) 则默认的autoCommit为true
+    - **注意**：
+      - 只要autoCommit是false，就代表有事务，就需要手动提交，代表需要管理事务
+
+7. 关于mybatis集成日志组件。让我们调试起来更加方便。
+   - mybatis常见的能继承的日志组件有哪些呢？
+     - SLF4J：沙拉风，是一个日志标准，logback实现了这个标准
+     - LOG4J
+     - LOG4J2
+     - STDOUT_LOGGING
+     - ...
+   - 其中 `STDOUT_LOGGING` 是标准日志，mybatis内部已经实现了，只需要开启就行，怎么开启？
+     ```xml
+     <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+     </settings>
+     ```
+     这个标签在编写的时候要注意，编写需要特定顺序，需要在`environment`前面，但是又dtd文件提醒，就不需要记忆
+     这种实现也是可以的，可以看到一些信息，但是没有更详细的信息，如果你想使用更加丰富的组件，可以使用第三方的
+   - 集成`logback`日志框架
+     - logback框架是心啊了slf4j标准
+     - 第一步：引入logback依赖
+     - 第二步：logback必须的配置文件
+       - 这个文件名字必须叫做：logback.xml logback-test.xml
+       - 配置文件必须放在类的根路径下

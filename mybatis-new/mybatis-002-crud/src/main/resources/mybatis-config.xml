@@ -4,10 +4,6 @@
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-<!--    <settings>-->
-<!--        <setting name="logImpl" value="SLF4J"/>-->
-<!--    </settings>-->
-
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -19,13 +15,8 @@
             </dataSource>
         </environment>
     </environments>
-    <!--    在这里指定XxxMapper.xml的路径
-            resources自动会从类的根路径下开始查找资源-->
+
     <mappers>
-<!--        <mapper resource="CarMapper.xml"/>-->
-<!--        resource就是从类路径下加载资源-->
-<!--        url属性：从绝对路径当中加载资源-->
-<!--        <mapper url="file:///d:/CarMapper.xml"/> 不建议使用，移植性差-->
         <mapper resource="CarMapper.xml"/>
     </mappers>
 </configuration>
