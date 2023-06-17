@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    当scope为prototype时，就不是单例，默认为singleton为单例
+        目前来说，scope有这两个值：
+            singleton：单例
+            prototype：原型
+
+        其实scope属性有多个值：
+            比如：request、session
+            但是这两个值必须要求是一个web应用才有-->
+    <bean id="sb" class="cdu.zch.spring6.bean.SpringBean" scope="prototype"/>
+
+<!--    下面测试多个线程的自定义scope-->
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="threadScope">
+<!--                    这里使用的这个接口实现类是Spring内置的-->
+                    <bean class="org.springframework.context.support.SimpleThreadScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>
