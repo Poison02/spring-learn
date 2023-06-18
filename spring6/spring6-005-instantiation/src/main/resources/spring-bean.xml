@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--Spring提供的实例化方式第一种，自动调用无参构造方法进行实例化-->
+    <bean class="cdu.zch.spring6.bean.SpringBean" id="springBean"/>
+
+    <!--    第二种方法，通过简单工厂模式，需要告诉Spring，通过哪个方法哪个类获取Bean-->
+    <!--    factory-method 属性指的是工厂类中的静态方法，也就是告诉Spring，调用这个方法可以获取Bean-->
+    <bean id="starBean" class="cdu.zch.spring6.bean.StarFactory" factory-method="get"/>
+
+    <!--    第三种方法，通过工厂方法模式，factory-bean和factory-method
+            告诉Spring，调用哪个对象的哪个方法获取Bean-->
+    <bean id="gunFactory" class="cdu.zch.spring6.bean.GunFactory"/>
+    <!--    下面的配置很关键，factory-bean告诉Spring是哪个对象，factory-method告诉Spring调用哪个方法-->
+    <bean id="gun" factory-bean="gunFactory" factory-method="get"/>
+
+<!--    第四种方式，通过FactoryBean实现
+        这种方式实际上是第三种的简化，不需要手动指定factory-bean和factory-method-->
+    <bean id="person" class="cdu.zch.spring6.bean.PersonFactoryBean"/>
+
+<!--    -->
+<!--    <bean id="student" class="cdu.zch.spring6.bean.Student">-->
+<!--&lt;!&ndash;        这里把Date当作简单类型&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="birth" value="Mon Oct 10 14:30:26 CST 2022"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        当作非简单类型，但是这种方式只能获取系统当前时间&ndash;&gt;-->
+<!--        <property name="birth" ref="noeTime"/>-->
+<!--    </bean>-->
+<!--    <bean id="noeTime" class="java.util.Date"/>-->
+
+<!--    通过FactoryBean注入Date-->
+    <bean id="dateFactoryBean" class="cdu.zch.spring6.bean.DateFactoryBean">
+        <constructor-arg name="strDate" value="2022-06-18 20:23:32"/>
+    </bean>
+    <bean id="student" class="cdu.zch.spring6.bean.Student">
+        <property name="birth" ref="dateFactoryBean"/>
+    </bean>
+
+</beans>
