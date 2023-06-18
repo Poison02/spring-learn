@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    properties，一个map集合，可以配置很多属性
+        但是在这里写的properties，可以新建jdbc.properties配置文件替换-->
+<!--    <properties>-->
+<!--&lt;!&ndash;        这是其中的一个属性名&ndash;&gt;-->
+<!--        <property name="jdbc.driver" value="com.mysql.cj.jdbc"/>-->
+<!--    </properties>-->
+<!--    如果使用了jdbc配置文件，就使用properties resource-->
+    <properties resource="jdbc.properties"/>
+<!--    <properties url="绝对路径的properties配置文件"/>-->
+
+<!--    default 表示默认使用的环境
+        默认的环境什么意思？当你使用mybatis创建SqlSessionFactory对象的时候，没有指定使用哪个环境，默认用的是default的环境-->
+    <environments default="development">
+<!--        其中的一个环境，连接的数据库是mybatis-new-->
+        <environment id="development">
+            <!--
+                配置事务管理器
+                    作用：配置事务管理器，指定mybatis具体使用什么方式管理事务
+                    type：
+                        JDBC，使用原生的JDBC代码管理事务
+                        MANAGED，mybatis不再负责事务的管理，交给其他的JavaEE容器来管理，例如：Spring
+                    大小写无所谓，但是只有这两种选择
+            -->
+            <transactionManager type="JDBC"/>
+            <!-- dataSource
+                    数据源
+                    数据源作用是什么？给程序提供Connection。但凡是给程序提供Connection的都被称为数据源
+                    数据源是一套规范，JDK种有一个规范：javax.sql.Datasource
+                    我们自己也可以编写数据源组件，只需要实现javax.sql.Datasource即可
+                    比如可以写一个数据库连接池，数据库连接池是提供连接对象的，所以数据库连接池就是一个数据源
+                    常见的数据源组件（连接池）？
+                        alibaba的Druid
+                        C3P0
+                        DBCP
+                        Hikari
+                        ...
+                    type属性用来指定数据源的类型，就是指定具体使用什么方式获取Connection
+                        type属性有三个值，三选一
+                        type = UNPOOLED|POOLED|JNDI
+                            UNPOOLED：不用连接池
+                            POOLED：使用mybatis自己实现的数据库连接池
+                            JNDI：集成第三方连接池
+                        JNDI是一套规范，大部分的web容器都实现了这套规范，如Tomcat等
+                        JNDI是：Java命名目录接口，Tomcat实现了这个规范-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis-new"/>
+                <property name="username" value="root"/>
+                <property name="password" value="248613"/>
+            </dataSource>
+        </environment>
+        <!--这是mybatis的另一个环境，连接的数据库是另一个数据库 mybatis-new2-->
+<!--        一般一个数据库会对应一个SqlSessionFactory对象
+            一个环境对应一个SqlSessionFactory对象-->
+        <environment id="mybatisDB">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis-new2"/>
+                <property name="username" value="root"/>
+                <property name="password" value="248613"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="CarMapper.xml"/>
+    </mappers>
+</configuration>
