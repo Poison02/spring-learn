@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    构造注入模式下
+            注意：基于这种模式下，产生的循环依赖是无法解决的！同样为有异常-->
+    <bean id="husbandBean" class="cdu.zch.spring6.bean2.Husband">
+        <constructor-arg index="0" value="哈哈哈"/>
+        <constructor-arg index="1" ref="wifeBean"/>
+    </bean>
+
+    <bean id="wifeBean" class="cdu.zch.spring6.bean2.Wife">
+        <constructor-arg index="0" value="嘻嘻嘻"/>
+        <constructor-arg index="1" ref="husbandBean"/>
+    </bean>
+
+</beans>

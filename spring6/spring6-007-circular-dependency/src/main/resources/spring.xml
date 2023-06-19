@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    singleton + setter模式下的循环依赖
+            singleton表示在整个Spring容器中十单例的，独一无二的对象
+
+            在 singleton + setter模式下 为什么循环依赖没问题？Spring怎么应对的？
+                主要的原因是，在这种模式下Spring对Bean的管理主要分为两个阶段：
+                    第一个阶段：在Spring容器加载的时候，实例化Bean，只要其中任意一个Bean实例化之后，马上进行”曝光“【不等属性赋值就曝光】
+                    第二个阶段：Bean”曝光“之后，再进行属性的赋值（set方法）
+                核心解决方案：实例化对象和对象的属性赋值分为两个阶段来完成
+            注意：只有在singleton + setter模式下才能进行提前“曝光”的操作-->
+<!--    <bean id="husband" class="cdu.zch.spring6.bean.Husband">-->
+<!--        <property name="name" value="哈哈哈"/>-->
+<!--        <property name="wife" ref="wife"/>-->
+<!--    </bean>-->
+<!--    <bean id="wife" class="cdu.zch.spring6.bean.Wife">-->
+<!--        <property name="name" value="嘻嘻嘻"/>-->
+<!--        <property name="husband" ref="husband"/>-->
+<!--    </bean>-->
+
+<!--    在prototype + setter模式
+        这种模式会出现异常！
+        异常：当前的Bean正处在创建中异常...
+        注意：只有当Bean的scope的都是prototype才会出现异常-->
+    <bean id="husband" class="cdu.zch.spring6.bean.Husband" scope="prototype">
+        <property name="name" value="哈哈哈"/>
+        <property name="wife" ref="wife"/>
+    </bean>
+    <bean id="wife" class="cdu.zch.spring6.bean.Wife" scope="prototype">
+        <property name="name" value="嘻嘻嘻"/>
+        <property name="husband" ref="husband"/>
+    </bean>
+
+</beans>
