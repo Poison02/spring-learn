@@ -3,3 +3,14 @@ server:
 spring:
   application:
     name: eureka-server # 应用名称，不要使用特殊字符
+
+# eureka的配置分为三类 server client 实例
+eureka:
+  server:
+    eviction-interval-timer-in-ms: 10000 # 服务端间隔多少毫秒做定期删除的操作
+    renewal-percent-threshold: 0.85 # 续约百分比，超过85%的应用没有续约，那么eureka会保护服务，不会剔除任何一个
+  instance: # 实例配置
+    hostname: localhost # 主机名称 写localhost或者ip
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port} # 主机名:应用名:端口
+    prefer-ip-address: true # 以ip的形式显示具体的服务信息
+    lease-renewal-interval-in-seconds: 5 # 服务实例的续约时间间隔

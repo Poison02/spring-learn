@@ -5,6 +5,15 @@ spring:
     name: eureka-client-a
 # 注册的含义是什么？就是将自己的一些信息（什么信息ip、端口等）发动过去（发到哪里）
 eureka:
-  client:
+  client: # 客户端的相关配置
     service-url: # 指定注册地址
       defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true # 可以不往eureka-server注册 那就是false
+    fetch-registry: true # 应用是否拉取服务列表到本地
+    registry-fetch-interval-seconds: 20 # 为了解决服务列表的脏读问题 时间越短脏读越少 性能消耗越大 默认30s
+
+  instance: # 实例配置
+    hostname: localhost # 主机名称 写localhost或者ip
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port} # 主机名:应用名:端口
+    prefer-ip-address: true # 以ip的形式显示具体的服务信息
+    lease-renewal-interval-in-seconds: 10 # 服务实例的续约时间间隔
