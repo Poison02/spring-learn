@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans>
+    <bean id="user" class="cdu.zch.bean.User">
+        <property name="name" value="小花"/>
+        <property name="age" value="18"/>
+    </bean>
+</beans>
