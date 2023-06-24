@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="CheckStyle-IDEA-Module" serialisationVersion="2">
+    <option name="activeLocationsIds" />
+  </component>
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/spring6-008-ioc-annotation/src/main/resources/spring.xml</file>
+          <file>file://$MODULE_DIR$/spring6-008-ioc-annotation/src/main/resources/spring-choose.xml</file>
+          <file>file://$MODULE_DIR$/spring6-008-ioc-annotation/src/main/resources/spring-di-annotation.xml</file>
+          <file>file://$MODULE_DIR$/spring6-008-ioc-annotation/src/main/resources/spring-autowired.xml</file>
+          <file>file://$MODULE_DIR$/spring6-008-ioc-annotation/src/main/resources/spring-di-resource.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+</module>
