@@ -6,8 +6,10 @@ import cdu.zch.bank.exceptions.MoneyNotEnoughException;
 import cdu.zch.bank.exceptions.TransferException;
 import cdu.zch.bank.pojo.Account;
 import cdu.zch.bank.service.AccountService;
+import cdu.zch.bank.util.GenerateDaoProxy;
 import cdu.zch.bank.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 /**
  * @author Zch
@@ -15,7 +17,15 @@ import org.apache.ibatis.session.SqlSession;
  **/
 public class AccountServiceImpl implements AccountService {
 
-    private AccountDao accountDao = new AccountDaoImpl();
+    // private AccountDao accountDao = new AccountDaoImpl();
+
+    // 自己封装
+    // private AccountDao accountDao = (AccountDao) GenerateDaoProxy.generate(SqlSessionUtil.openSession(), AccountDao.class);
+
+    // mybatis提供了dao接口的代理机制
+    // mybatis实际上采用了代理模式，在内存中生成dao接口的代理类，然后创建代理类的示例
+    // 使用这种代理机制的前提，sqlMapper.xml中的namespace和id必须按照规定写！
+    private AccountDao accountDao = SqlSessionUtil.openSession().getMapper(AccountDao.class);
 
     @Override
     public void transfer(String fromActno, String toActno, double money) throws MoneyNotEnoughException, TransferException {

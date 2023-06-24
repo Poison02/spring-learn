@@ -22,6 +22,6 @@
     </environments>
 
     <mappers>
-        <mapper resource="AccountMapper.xml"/>
+        <mapper resource="CarMapper.xml"/>
     </mappers>
 </configuration>
