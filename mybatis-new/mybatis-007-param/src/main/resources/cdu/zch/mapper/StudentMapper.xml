@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cdu.zch.mapper.StudentMapper">
+
+    <!--
+        parameterType 属性的作用：
+            告诉mybatis，我这个方法的参数类型是什么类型
+            mybatis框架自身带有类型自动推断机制，所以大部分情况下都是省略不写的
+            mybatis底层调用setXxx方法，取决于parameterType的值
+        注意：mybatis框架实际上内置了很多别名，所以说写parameterType的时候可以使用别名，参考开发文档
+    -->
+    <select id="selectById" resultType="Student" parameterType="long">
+        select * from t_student where id=#{id}
+    </select>
+
+    <select id="selectByName" resultType="Student" parameterType="string">
+        select * from t_student where name=#{name, javaType=String, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByBirth" resultType="Student" >
+        select * from t_student where birth=#{birth}
+    </select>
+
+    <select id="selectBySex" resultType="Student" >
+        select * from t_student where sex=#{sex}
+    </select>
+
+    <insert id="insertStudentByMap" parameterType="map">
+        insert into t_student values(null, #{name}, #{age}, #{height}, #{birth}, #{sex})
+    </insert>
+
+    <insert id="insertStudentByPOJO" parameterType="student">
+        insert into t_student values(null, #{name}, #{age}, #{height}, #{birth}, #{sex})
+    </insert>
+
+    <select id="selectByNameAndSex">
+        <!--select * from t_student where name=#{arg0} and sex=#{arg1}-->
+        <!--select * from t_student where name=#{param1} and sex=#{param2}-->
+        select * from t_student where name=#{arg0} and sex=#{param2}
+    </select>
+
+    <select id="selectByNameAndSex2">
+        <!--select * from t_student where name=#{param1} and sex=#{param2}-->
+        select * from t_student where name=#{name} and sex=#{sex}
+    </select>
+
+</mapper>
