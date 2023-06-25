@@ -5,16 +5,24 @@
 
 <mapper namespace="cdu.zch.mybatis.mapper.CarMapper">
 
-    <select id="selectByCarType" resultType="cdu.zch.mybatis.pojo.Car">
+    <select id="selectByCarType" resultType="Car">
         select id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
         from t_car
         where car_type=#{carType}
     </select>
 
-    <select id="selectAllByAscOrDesc" resultType="cdu.zch.mybatis.pojo.Car">
+    <select id="selectAllByAscOrDesc" resultType="Car">
         select id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
         from t_car
         order by produce_time ${ascOrDesc}
     </select>
+
+    <!--
+        useGeneratedKeys="true" 使用自动生成的主键值
+        keyProperty="id" 指定主键值赋值给对象的哪个属性，这里表示赋给car的id
+    -->
+    <insert id="insertCarUserGeneratedKeys" useGeneratedKeys="true" keyProperty="id">
+        insert into t_car values(null, #{carNum}, #{brand}, #{guidePrice}, #{produceTime}, #{carType})
+    </insert>
 
 </mapper>

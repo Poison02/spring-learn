@@ -14,4 +14,11 @@ public interface CarMapper {
 
     List<Car> selectAllByAscOrDesc(String ascOrDesc);
 
+    /**
+     * 插入car并使用生成的主键值
+     * @param car
+     * @return
+     */
+    int insertCarUserGeneratedKeys(Car car);
+
 }

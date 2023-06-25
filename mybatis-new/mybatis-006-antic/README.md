@@ -1,5 +1,5 @@
-mybatis小技巧
-1. #{} 和 ${} 的区别
+# mybatis小技巧
+## 1. #{} 和 ${} 的区别
 
 #{}的执行结果
 ```
@@ -27,7 +27,7 @@ org.apache.ibatis.exceptions.PersistenceException:
 
 **优先使用#{}**，这是原则，避免SQL注入的风险。
 
-${} 什么时候使用？
+## ${} 什么时候使用？
 
 例子：
 
@@ -59,3 +59,24 @@ Car{id=2, carNum='1002', brand='奔驰AMG', guidePrice=100.0, produceTime='2022-
    有了这个表名之后，将表名拼接到sql语句当中，返回查询结果。
    ```
    
+3. 批量删除 `delete from t_car where id in (${ids});`
+4. 模糊查询 
+   - `select id,car_num from t_car where brand like '%${brand}%';`
+   - `select id,car_num from t_car where brand like concact('%', #{brand}, '%');`
+   - `select id,car_num from t_car where brand like concact('%', '${brand}', '%');`
+   - `select id,car_num from t_car where brand like "%"#{brand}"%";`
+
+## `mappers`标签：
+   ```
+   <mappers>
+        <mapper resource=""/>
+        <mapper url=""/>
+        <mapper class=""/>
+    </mappers>
+   ```
+标签有三个：
+   - `resource`：这种方式从类的根路径下开始查找资源，配置文件必须放在类路径下
+   - `url`：绝对路径查找
+   - `class`：全限定接口名，必须带有包名。
+     如果写这个，则mapper.xml则必须和接口放在同一目录下，并且接口和xml文件名字要一致
+注意！！！在IDEA的resources目录下，建目录的方法：`com/zch/mapper`
