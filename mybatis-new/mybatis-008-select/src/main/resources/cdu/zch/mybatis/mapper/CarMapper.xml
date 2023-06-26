@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cdu.zch.mybatis.mapper.CarMapper">
+
+    <insert id="insert">
+        insert into t_car values(null, #{carNum}, #{brand}, #{guidePrice}, #{produceTime}, #{carType})
+    </insert>
+    <delete id="deleteById">
+        delete from t_car where id=#{id}
+    </delete>
+    <update id="update">
+        update t_car
+        set car_num=#{carNum}, brand=#{brand}, guide_price=#{guidePrice}, produce_time=#{produceTime},
+        car_type=#{carType}
+        where id=#{id}
+    </update>
+    <select id="selectById" resultType="Car">
+        select id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
+        from t_car
+        where id=#{id}
+    </select>
+    <select id="selectAll" resultType="Car">
+        select id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
+        from t_car
+    </select>
+
+    <select id="selectByIdRetMap" resultType="Map">
+        select id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
+        from t_car
+        where id=#{id}
+    </select>
+
+    <select id="selectRetMap" resultType="Map">
+        select id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
+        from t_car
+    </select>
+
+    <select id="selectAllRetMap" resultType="Map">
+        select id, car_num as carNum, brand, guide_price as guidePrice, produce_time as produceTime, car_type as carType
+        from t_car
+    </select>
+
+    <!--专门定义一个结果映射 ResultMap
+        在这里指定数据库字段名和Java类名的对应关系
+        type：用来指定pojo类的类名
+        id：指定resultMap的唯一标识，在select标签中使用
+    -->
+    <resultMap id="carResultMap" type="Car">
+        <!--如果数据库表中有主键，建议培植一个id标签-->
+        <id property="id" column="id"/>
+        <!--
+            property填写pojo类的属性
+            column填写数据库表的字段名
+        -->
+        <result property="carNum" column="car_num" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <!--如果property和column是一样的可以省略-->
+        <result property="brand" column="brand"/>
+        <result property="guidePrice" column="guide_price"/>
+        <result property="produceTime" column="produce_time"/>
+        <result property="carType" column="car_type"/>
+    </resultMap>
+
+    <!--
+    resultMap用来指定使用哪个resultMap结果映射
+    -->
+    <select id="selectAllByResultMap" resultMap="carResultMap">
+        select * from t_car
+    </select>
+
+    <select id="selectAllByMapUnderscoreToCamelCase" resultType="Car">
+        select * from t_car
+    </select>
+
+</mapper>

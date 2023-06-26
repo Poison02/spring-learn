@@ -3,25 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
     <properties resource="jdbc.properties"/>
-
     <settings>
         <setting name="logImpl" value="SLF4J"/>
+        <!--开启驼峰命名自动映射，但是前提是命名必须要规范-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
-
-    <!--    别名标签-->
     <typeAliases>
-        <!--
-            type: 给哪个类起别名
-            alias：起什么别名
-            注意：别名不区分大小写
-                namespace不能使用别名机制，必须写全限定名！！！
-            alias 是可以省略的，有默认别名
-                默认别名就是类的简名，如cdu.zch.mybatis.pojo.Car 别名就是 Car/car/CAr...
-         -->
-        <!-- <typeAlias type="cdu.zch.mybatis.pojo.Car" alias="Car"/>-->
-        <!-- 将这个包下的所有类自动起别名，别名就是类简名 -->
         <package name="cdu.zch.mybatis.pojo"/>
     </typeAliases>
 
@@ -38,8 +26,6 @@
     </environments>
 
     <mappers>
-        <mapper resource="CarMapper.xml"/>
-
-<!--        <package name="cdu.zch.mybatis.mapper.CarMapper"/>-->
+        <package name="cdu.zch.mybatis.mapper"/>
     </mappers>
 </configuration>
