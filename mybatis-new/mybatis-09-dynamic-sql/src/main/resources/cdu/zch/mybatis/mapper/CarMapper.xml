@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cdu.zch.mybatis.mapper.CarMapper">
+
+    <select id="selectByMultiCondition" resultType="Car">
+        select * from t_car where 1=1
+        <!--
+            if 标签中test属性是必须的
+            if标签中test属性的值是true或者false
+            如果是true，则会拼接到sql中
+
+            test中可以使用的是：
+                使用了@Param，那么test中要出现的是Param指定的
+                当没有使用@Param，那么test中要出现的是param1、param2...
+                当使用了POJO，那么test中出现属性名
+            在mybatis动态sql中，不能使用&&，只能使用and
+        -->
+        <if test="brand != null and brand != ''">
+            and brand like "%"#{brand}"%"
+        </if>
+        <if test="guidePrice != null and guidePrice != ''">
+            and guide_price > #{guidePrice}
+        </if>
+        <if test="carType != null and carType != ''">
+            and car_type like "%"#{carType}"%"
+        </if>
+    </select>
+
+    <select id="selectByMultiConditionWithWhere" resultType="Car">
+        select * from t_car
+        <!--
+        where 标签是专门负责where子句更智能
+        where标签只能去掉前面的and和or，不会去除后面的
+        -->
+        <where>
+            <if test="brand != null and brand != ''">
+                brand like "%"#{brand}"%"
+            </if>
+            <if test="guidePrice != null and guidePrice != ''">
+                and guide_price > #{guidePrice}
+            </if>
+            <if test="carType != null and carType != ''">
+                and car_type like "%"#{carType}"%"
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectByMultiConditionWithTrim" resultType="Car">
+        select * from t_car
+        <!--
+         prefixOverrides="" 删除前缀
+         suffix="" 加后缀
+         prefix="" 加前缀
+         suffixOverrides="" 删除后缀
+
+         prefix="where" 是在trim标签所有内容前面加前缀where
+         suffixOverrides="and|or" 把trim标签中内容后缀adn|or去掉
+        -->
+        <trim prefix="where" suffixOverrides="and|or">
+            <if test="brand != null and brand != ''">
+                brand like "%"#{brand}"%" and
+            </if>
+            <if test="guidePrice != null and guidePrice != ''">
+                guide_price > #{guidePrice} and
+            </if>
+            <if test="carType != null and carType != ''">
+                car_type like "%"#{carType}"%"
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateById">
+        update t_car
+        <set>
+            <if test="carNum != null and carNum != ''">car_num = #{carNum},</if>
+            <if test="brand != null and brand != ''">brand = #{brand},</if>
+            <if test="guidePrice != null and guidePrice != ''">guide_price = #{guidePrice},</if>
+            <if test="produceTime != null and produceTime != ''">produce_time = #{produceTime},</if>
+            <if test="carType != null and carType != ''">car_type = #{carType},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="selectWithChoose" resultType="car">
+        select * from t_car
+        <where>
+            <choose>
+                <when test="brand != null and brand != ''">
+                    brand like "%"#{brand}"%"
+                </when>
+                <when test="guidePrice != null and guidePrice != ''">
+                    guide_price >= #{guidePrice}
+                </when>
+                <otherwise>
+                    produce_time >= #{produceTime}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--
+    collection：集合或数组
+    item：集合或数组中的元素
+    separator：分隔符
+    open：foreach标签中所有内容的开始
+    close：foreach标签中所有内容的结束
+    -->
+    <delete id="deleteBatchByForeach">
+        delete from t_car where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteBatchByForeach2">
+        delete from t_car where
+        <foreach collection="ids" item="id" separator="or">
+            id = #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insertBatchByForeach">
+        insert into t_car values
+        <foreach collection="cars" item="car" separator=",">
+            (null,#{car.carNum},#{car.brand},#{car.guidePrice},#{car.produceTime},#{car.carType})
+        </foreach>
+    </insert>
+
+    <!--
+    sql标签用来声明sql片段
+    include标签用来将声明的sql片段包含到某个sql语句当中
+    作用：代码复用。易维护。
+    -->
+    <sql id="carCols">id,car_num carNum,brand,guide_price guidePrice,produce_time produceTime,car_type carType</sql>
+    <select id="selectAllRetListMap" resultType="map">
+        select <include refid="carCols"/> from t_car
+    </select>
+
+    <select id="selectByIdRetMap" resultType="map">
+        select <include refid="carCols"/> from t_car where id = #{id}
+    </select>
+
+</mapper>
