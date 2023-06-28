@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cdu.zch.mybatis.mapper.StudentMapper">
+
+    <!--多对一映射的第一种方式，一条SQL语句，级联-->
+    <resultMap id="studentResultMap" type="Student">
+        <id property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <result property="clazz.cid" column="cid"/>
+        <result property="clazz.cname" column="cname"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="studentResultMap">
+        select
+            s.sid, s.sname, c.cid, c.cname
+        from
+            t_stu s left join t_clazz c on s.cid=c.cid
+        where
+            s.sid=#{sid}
+    </select>
+
+    <!--第二种，association-->
+    <resultMap id="studentAssociationResultMap" type="Student">
+        <id property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <!--
+        association 翻译为关联 一个Student对象关联一个Clazz对象
+            property：提供要映射的POJO类的属性名
+            javaType：用来指定要映射的Java类型
+        -->
+        <association property="clazz" javaType="Clazz">
+            <id property="cid" column="cid"/>
+            <result property="cname" column="cname"/>
+        </association>
+    </resultMap>
+
+    <select id="selectByIdAssociation" resultMap="studentAssociationResultMap">
+        select
+        s.sid, s.sname, c.cid, c.cname
+        from
+        t_stu s left join t_clazz c on s.cid=c.cid
+        where
+        s.sid=#{sid}
+    </select>
+
+    <!--第三种，分部查询，两条SQL
+        分步查询：优点：
+            1. 复用性增强，可以重复利用
+            2. 可以充分利用延迟加载/懒加载
+        什么是延迟加载？有什么用？
+            延迟加载的核心原理是：用的时候再查询语句。不用就不查询
+            作用：提高性能，尽可能不查，或者尽可能少查
+        怎么开启延迟加载呢？
+            association中添加 fetchType="lazy"
+            注意：默认不开启延迟加载
+            这种设置只是局部的设置，只对当前关联的association有作用
+        注意，在实际开发中，大部分情况都需要使用延迟加载
+            在mybatis-config中添加全局配置，表示所有的分步查询都是延迟加载
+                <setting name="lazyLoadingEnabled" value="true"/>
+        实际开发的模式，把全局的延迟加载打开，如果某一步不需要全局加载，则在相应的
+        association中添加 fetchType="eager"
+    -->
+    <resultMap id="studentResultMapByStep" type="Student">
+        <id property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <!--这里的select需要指定第二句SQL语句的ID
+            column是传给第二条SQL语句的字段
+        -->
+        <association property="clazz"
+                     select="cdu.zch.mybatis.mapper.ClazzMapper.selectById"
+                     column="cid"
+                     />
+    </resultMap>
+
+    <select id="selectByIdStep1" resultMap="studentResultMapByStep">
+        select sid, sname, cid
+        from t_stu
+        where sid=#{sid}
+    </select>
+    
+    <select id="selectByCid" resultType="Student">
+        select sid, sname
+        from t_stu
+        where cid=#{cid}
+    </select>
+
+</mapper>
