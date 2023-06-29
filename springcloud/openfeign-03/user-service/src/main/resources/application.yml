@@ -1,0 +1,19 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: user-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+# feign 只是封装了远程调用，底层还是Ribbon，所以修改配置就修改Ribbon的就行
+ribbon:
+  ReadTimeout: 3000 # 3s时间超时、调用超时
+  ConnectTimeout: 3000 # 连接服务超时时间
+
+logging:
+  level:
+    cdu.zch.userservice.feign.UserOrderFeign: debug # 我需要打印这个接口下的日志
