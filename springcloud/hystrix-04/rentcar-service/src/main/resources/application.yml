@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: rentcar-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://175.24.183.52:8761/eureka
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
