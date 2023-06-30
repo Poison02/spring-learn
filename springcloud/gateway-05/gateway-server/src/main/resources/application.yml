@@ -1,0 +1,15 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      enabled: true # 默认开启的
+      routes:
+        - id: login-service-route # 路由id，保持唯一即可
+          uri: http://localhost:8080 # uri
+          predicates: # 断言匹配 匹配路径
+            - Path=/login
+
