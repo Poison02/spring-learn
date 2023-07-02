@@ -28,6 +28,6 @@ To Learn Spring-framework。
 
 对应的笔记在学习的地方找到的，都是老师写好的笔记：
 
-mybatis：[MyBatis](https://www.yuque.com/dujubin/ltckqu/pozck9?#)
+mybatis：[MyBatis](https://www.yuque.com/dujubin/ltckqu/pozck9?#) 密码：rs4n
 
-spring6：[Spring6](https://www.yuque.com/dujubin/ltckqu/kipzgd?singleDoc#)
+spring6：[Spring6](https://www.yuque.com/dujubin/ltckqu/kipzgd?singleDoc#) 密码：mg9b
