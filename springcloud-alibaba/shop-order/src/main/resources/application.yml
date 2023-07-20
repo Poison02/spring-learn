@@ -40,3 +40,7 @@ spring:
       transport:
         port: 8719 # 跟控制台交流的端口，随意制定一个未使用的端口即可
         dashboard: localhost:8080 # 控制台的端口
+# feign开启sentinel
+feign:
+  sentinel:
+    enabled: true

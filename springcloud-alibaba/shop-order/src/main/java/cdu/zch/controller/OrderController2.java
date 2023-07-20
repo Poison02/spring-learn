@@ -38,6 +38,12 @@ public class OrderController2 {
             return null;
         }
 
+        if (product.getPid() == -1) {
+            Order order = new Order();
+            order.setUsername("下单失败！");
+            return order;
+        }
+
         //模拟一次网络延时
         try {
             Thread.sleep(100);

@@ -1,0 +1,26 @@
+server:
+  # 指定服务器的端口号
+  port: 7000
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true               # 让gateway发现nacos中的服务
+      routes:
+        - id: shop-product            # 路由的唯一标识
+          uri: lb://service-product   # lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略
+          order: 0                    # 优先级，越小优先级越高
+          predicates: # 断言，满足所有断言，才会进行转发
+            - Path=/product/**        # 注意：这是使用= 不是：
+        - id: shop-order
+          uri: lb://service-order     # lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略
+          order: 0
+          predicates:
+            - Path=/order/**
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
