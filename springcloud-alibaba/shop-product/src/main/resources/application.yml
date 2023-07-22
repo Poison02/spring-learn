@@ -31,3 +31,8 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+    # sentinel 配置
+    sentinel:
+      transport:
+        port: 8719 # 跟控制台交流的端口，随意制定一个未使用的端口即可
+        dashboard: localhost:8080 # 控制台的端口

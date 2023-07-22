@@ -14,6 +14,10 @@ spring:
           order: 0                    # 优先级，越小优先级越高
           predicates: # 断言，满足所有断言，才会进行转发
             - Path=/product/**        # 注意：这是使用= 不是：
+            # - Age=18,60               # 自定义断言，年龄在18到60之间
+          # filters:
+            # - StripPrefix=1
+            # - Log=true          # 自定义局部过滤器，控制日志是否开启
         - id: shop-order
           uri: lb://service-order     # lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略
           order: 0
