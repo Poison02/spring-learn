@@ -26,5 +26,11 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-
+management:
+  zipkin:
+    tracing:
+      endpoint: http://127.0.0.1:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0 # 记录速率100%
 
