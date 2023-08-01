@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @author Zch
  * @date 2023/7/19
  **/
-@Service
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
     @Resource
@@ -19,5 +19,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void save(Order order) {
         orderDao.save(order);
+    }
+
+    @Override
+    public Order createOrder(Integer pid) {
+        return null;
     }
 }

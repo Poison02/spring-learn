@@ -18,4 +18,9 @@ public class ProductServiceFallBack implements ProductService {
 
         return product;
     }
+
+    @Override
+    public void reduceInventory(Integer pid, int num) {
+
+    }
 }

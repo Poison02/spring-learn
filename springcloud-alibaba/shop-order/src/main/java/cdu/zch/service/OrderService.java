@@ -10,4 +10,6 @@ public interface OrderService {
 
     void save(Order order);
 
+    Order createOrder(Integer pid);
+
 }

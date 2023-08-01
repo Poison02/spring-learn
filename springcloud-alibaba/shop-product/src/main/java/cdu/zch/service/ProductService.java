@@ -10,4 +10,6 @@ public interface ProductService {
 
     Product findByPid(Integer pid);
 
+    void reduceInventory(Integer pid, int num);
+
 }

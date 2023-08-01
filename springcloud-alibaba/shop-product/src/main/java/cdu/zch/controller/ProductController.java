@@ -5,10 +5,7 @@ import cdu.zch.service.ProductService;
 import com.alibaba.fastjson.JSON;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Zch
@@ -28,6 +25,11 @@ public class ProductController {
         log.info("查询到商品是: " + JSON.toJSONString(product));
         // log.info("age: " + age);
         return product;
+    }
+
+    @RequestMapping("/product/reduceInventory")
+    public void reduceInventory(@RequestParam("pid") Integer pid, @RequestParam("num") int num) {
+        productService.reduceInventory(pid, num);
     }
 
 }
